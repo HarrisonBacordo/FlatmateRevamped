@@ -26,9 +26,20 @@ import com.harrisonbacordo.flatmate.ui.theme.FlatmateAuthTheme
 import com.harrisonbacordo.flatmate.ui.theme.facebookBlue
 
 @Composable
-fun AuthLanding() {
-    val viewModel: AuthLandingViewModel = ViewModelProvider(LocalContext.current as ViewModelStoreOwner)[AuthLandingViewModel::class.java]
-    AuthLandingScreen()
+fun AuthLanding(
+    onCreateNewAccountClicked: () -> Unit,
+    onContinueWithEmailClicked: () -> Unit,
+    onContinueWithFacebookClicked: () -> Unit,
+    onContinueWithGoogleClicked: () -> Unit
+) {
+    val viewModel: AuthLandingViewModel =
+        ViewModelProvider(LocalContext.current as ViewModelStoreOwner)[AuthLandingViewModel::class.java]
+    AuthLandingScreen(
+        onCreateNewAccountClicked,
+        onContinueWithEmailClicked,
+        onContinueWithFacebookClicked,
+        onContinueWithGoogleClicked
+    )
 }
 
 /**
@@ -36,6 +47,10 @@ fun AuthLanding() {
  */
 @Composable
 private fun AuthLandingScreen(
+    onCreateNewAccountClicked: () -> Unit,
+    onContinueWithEmailClicked: () -> Unit,
+    onContinueWithFacebookClicked: () -> Unit,
+    onContinueWithGoogleClicked: () -> Unit,
 ) {
     CompanyLogo(modifier = Modifier.clickable(onClick = {}))
     Column(
@@ -46,26 +61,26 @@ private fun AuthLandingScreen(
         AuthOnboardingScreenOption(
             title = "Create New Account",
             leadingIcon = R.drawable.ic_sign_up_24dp,
-            modifier = Modifier.clickable(onClick = {})
+            modifier = Modifier.clickable(onClick = onCreateNewAccountClicked)
         )
         AuthOnboardingScreenOption(
             title = "Continue With Email",
             leadingIcon = R.drawable.ic_email_24dp,
-            modifier = Modifier.clickable(onClick = {})
+            modifier = Modifier.clickable(onClick = onContinueWithEmailClicked)
         )
         AuthOnboardingScreenOption(
             title = "Continue With Facebook",
             leadingIcon = R.drawable.ic_email_24dp,
             Modifier
                 .background(facebookBlue)
-                .clickable(onClick = {})
+                .clickable(onClick = onContinueWithFacebookClicked)
         )
         AuthOnboardingScreenOption(
             title = "Continue With Google",
             leadingIcon = R.drawable.ic_email_24dp,
             modifier = Modifier
                 .background(Color.White)
-                .clickable(onClick = {}),
+                .clickable(onClick = onContinueWithGoogleClicked),
             contentColor = Color.Black
         )
     }
@@ -77,7 +92,7 @@ private fun AuthLandingScreenPreview() {
     FlatmateAuthTheme {
         Scaffold {
             it
-            AuthLandingScreen()
+            AuthLandingScreen({}, {}, {}, {},)
         }
     }
 }

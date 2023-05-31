@@ -9,11 +9,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.harrisonbacordo.flatmate.ui.auth.createNewAccount.AuthCreateNewAccountScreen
+import com.harrisonbacordo.flatmate.ui.auth.continueWIthEmail.AuthContinueWithEmail
+import com.harrisonbacordo.flatmate.ui.auth.createNewAccount.AuthCreateNewAccount
 import com.harrisonbacordo.flatmate.ui.auth.debug.AuthDebugScreen
 import com.harrisonbacordo.flatmate.ui.auth.forgotPassword.AuthForgotPasswordScreen
 import com.harrisonbacordo.flatmate.ui.auth.landing.AuthLanding
-import com.harrisonbacordo.flatmate.ui.auth.login.AuthLoginScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,13 +28,18 @@ fun AuthFlow() {
         content = {
             NavHost(modifier = Modifier.padding(it), navController = authNavController, startDestination = AuthDestinations.Landing.name) {
                 composable(AuthDestinations.Landing.name) {
-                    AuthLanding()
+                    AuthLanding(
+                        onCreateNewAccountClicked = createNewAccountRoute,
+                        onContinueWithEmailClicked = loginRoute,
+                        onContinueWithFacebookClicked = {},
+                        onContinueWithGoogleClicked = {},
+                    )
                 }
                 composable(AuthDestinations.CreateNewAccount.name) {
-                    AuthCreateNewAccountScreen()
+                    AuthCreateNewAccount()
                 }
                 composable(AuthDestinations.Login.name) {
-                    AuthLoginScreen()
+                    AuthContinueWithEmail()
                 }
                 composable(AuthDestinations.ForgotPassword.name) {
                     AuthForgotPasswordScreen()
