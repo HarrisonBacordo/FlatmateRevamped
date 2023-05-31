@@ -26,7 +26,7 @@ import com.harrisonbacordo.flatmate.ui.theme.FlatmateAuthTheme
 import com.harrisonbacordo.flatmate.ui.theme.facebookBlue
 
 @Composable
-fun AuthLanding(onCreateNewAccountClicked: () -> Unit, ) {
+fun AuthLanding() {
     val viewModel: AuthLandingViewModel = ViewModelProvider(LocalContext.current as ViewModelStoreOwner)[AuthLandingViewModel::class.java]
     AuthLandingScreen()
 }
